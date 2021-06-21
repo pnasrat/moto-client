@@ -9,6 +9,7 @@ class MotoClient:
     def __init__(self, host: str = "192.168.100.1"):
         self.logger = logging.getLogger(type(self).__name__)
         self.session = requests.Session()
+        self.session.verify = False
         self.private_key = None
         self.host = host
 
@@ -91,7 +92,7 @@ class MotoClient:
             "HNAP_AUTH": f"{hnap_auth} {current_time}",
         }
         response = self.session.post(
-            f"http://{self.host}/HNAP1/", headers=headers, json=data
+            f"https://{self.host}/HNAP1/", headers=headers, json=data
         )
 
         try:
